@@ -60,6 +60,11 @@ public class UserService{
         
     }
     
+    public boolean validateToken(String token){
+        JwtService service = new JwtService();
+        return service.validateToken(token);
+    }
+    
     
     
 }

@@ -38,4 +38,22 @@ public class UserController{
         return ResponseEntity.ok(response);
     }
     
+    @PostMapping("/api/verify")
+    public ResponseEntity<?> verify(@RequestBody Map <String, String> body){
+        
+        boolean isValid = userservice.validateToken(body.get("token"));
+        int code = 200;
+        Map<String, Object> response = new HashMap<>();
+        if(isValid){
+            response.put("success",true);
+        }else{
+            response.put("success",false);
+            code = 401;
+        }
+        return ResponseEntity.status(code).body(response);
+        
+    }
+    
+    
+    
 }

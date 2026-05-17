@@ -1,0 +1,101 @@
+<!-- upload.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Video</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            
+            async function verifyToken(){
+                const token = localStorage.getItem("token");
+                const response = await fetch("/api/verify",{
+                    method:"POST",
+                    headers:{"Content-Type":"application/json"},
+                    body:JSON.stringify({"token":token})
+                })
+                const result = await response.json();
+                if(!result.success){
+                    window.location.href = "/login.html";
+                }
+            }
+            verifyToken()
+            
+            setInterval(verifyToken,30000)
+        })
+    </script>
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial;
+        }
+
+        body{
+            background:#0f0f0f;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            color:white;
+        }
+
+        .upload-box{
+            width:400px;
+            background:#1a1a1a;
+            padding:40px;
+            border-radius:12px;
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:30px;
+        }
+
+        input{
+            width:100%;
+            margin-bottom:20px;
+            color:white;
+        }
+
+        button{
+            width:100%;
+            padding:15px;
+            border:none;
+            border-radius:8px;
+            background:red;
+            color:white;
+            font-size:16px;
+            cursor:pointer;
+        }
+
+        #message{
+            margin-top:20px;
+            text-align:center;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="upload-box">
+
+    <h1>Upload Video</h1>
+
+    <input type="file" id="videoFile">
+
+    <button id="uploadBtn">
+        Upload
+    </button>
+
+    <div id="message"></div>
+
+</div>
+
+</body>
+</html>

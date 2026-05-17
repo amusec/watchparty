@@ -21,10 +21,13 @@ document.addEventListener("DOMContentLoaded", function(){
             const result = await response.json();
             if(result.success){
                 message.className = "success";
+                localStorage.setItem("token",result.token)
+                window.location.href = "/dashboard.html"
             }else{
                 message.className = "error"
             }
                 message.innerText = result.message;
+            
             username.value = "";
             password.value = "";
             

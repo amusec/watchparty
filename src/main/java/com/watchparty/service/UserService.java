@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 import org.springframework.stereotype.Service;
 import org.springframework.jdbc.core.JdbcTemplate; 
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import com.watchparty.model.User;
@@ -33,9 +35,13 @@ public class UserService{
                 return ResponseEntity.ok(response);
                 
             }
-        }catch(Exception e){
+        }catch(DuplicateKeyException e){
             response.put("success",false);
-            response.put("message",e.getMessage());
+            response.put("message","Username or email already exists. Please retry!");
+            return ResponseEntity.ok(response);
+        }catch(DataAccessException e){
+            response.put("success",false);
+            response.put("message","Database error!");
             return ResponseEntity.ok(response);
         }
     }

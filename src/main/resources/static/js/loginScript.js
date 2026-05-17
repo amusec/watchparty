@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function(){
             "password":password.value,
         }
         try{
-            const resp = await fetch("/api/login",{
+            const response = await fetch("/api/login",{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
@@ -18,8 +18,13 @@ document.addEventListener("DOMContentLoaded", function(){
                 body:JSON.stringify(data)
             })
             
-            let response = await resp.json();
-            console.log(response);
+            const result = await response.json();
+            if(result.success){
+                message.className = "success";
+            }else{
+                message.className = "error"
+            }
+                message.innerText = result.message;
             username.value = "";
             password.value = "";
             

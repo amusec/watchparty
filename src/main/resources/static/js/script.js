@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded",function(){
     let password = document.getElementById("password")
     let email = document.getElementById("email")
     let submit = document.getElementById("submit")
+    let message = document.getElementById("message")
     
     submit.addEventListener("click", async function(e){
         e.preventDefault();
@@ -20,8 +21,13 @@ document.addEventListener("DOMContentLoaded",function(){
                 },body: JSON.stringify(data)
             });
 
-            const result = await response.text();
-            console.log(result);
+            const result = await response.json();
+            if(result.success){
+                message.className = "success";
+            }else{
+                message.className = "error"
+            }
+                message.innerText = result.message;
         } catch(error){
             console.log(error)
         }

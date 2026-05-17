@@ -28,11 +28,12 @@ public class UserController{
         String jwtToken =  userservice.login(user);
         Map<String, Object> response = new HashMap<>();
         if(!jwtToken.equals("N/A")){
-            response.put("status",true);
+            response.put("success",true);
+            response.put("message","Logged In Successfully!");
             response.put("token",jwtToken);
         }else{
-            response.put("status",true);
-            response.put("token",jwtToken);
+            response.put("success",false);
+            response.put("message","LogIn Failed!");
         }
         return ResponseEntity.ok(response);
     }

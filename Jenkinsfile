@@ -17,6 +17,12 @@ pipeline {
             }
         }
         
+        stage('stop old build and run the new one'){
+            steps{
+                sh 'pkill -f "watchparty-0.0.1-SNAPSHOT.jar"'
+            }
+        }
+        
         stage('run the app now'){
             steps{
                 sh 'nohup java -jar target/watchparty-0.0.1-SNAPSHOT.jar --server.port=80 > app.log 2>&1 &'

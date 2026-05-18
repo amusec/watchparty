@@ -19,7 +19,7 @@ pipeline {
         
         stage('stop old build and run the new one'){
             steps{
-                sh 'pkill -f "watchparty-0.0.1-SNAPSHOT.jar"'
+                sh ''' pkill -f "watchparty-0.0.1-SNAPSHOT.jar" || true '''
             }
         }
         
